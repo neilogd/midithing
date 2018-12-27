@@ -91,6 +91,9 @@ void setup()
   pinMode(PINCLOCK, OUTPUT);
   digitalWrite(PINCLOCK, LOW); // Set internal pull down resistor
 
+  pinMode(PINLEARN_HIGH, OUTPUT);
+  digitalWrite(PINLEARN_HIGH, HIGH); // Set high to pull it up (bit shit...but meh)
+
   pinMode(PINLEARN, INPUT); // maybe INPUT_PULLUP?
   // Attach the Bounce object with a 50 millisecond debounce time
   Bouncer.attach(PINLEARN);
@@ -112,11 +115,17 @@ void setup()
   Gates[2].pinLED = MODUL + 128;
   Gates[3].pinLED = BEND + 128;
   Gates[4].pinLED = PINCLOCK;
+  Gates[4].inverted = true;
   Gates[5].pinLED = PINGATE;
+  Gates[5].inverted = true;
   Gates[6].pinLED = PINGATE2;
+  Gates[6].inverted = true;
   Gates[7].pinLED = PINGATE3;
+  Gates[7].inverted = true;
   Gates[8].pinLED = PINGATE4;
+  Gates[8].inverted = true;
   Gates[9].pinLED = PINSTARTSTOP;
+  Gates[9].inverted = true;
 
   //  Init MIDI:
   //Serial.begin(115200);
@@ -196,7 +205,7 @@ void loop()
     init_ = millis();
 
     // Check for learn/cal mode signal
-    if (Bouncer.fell()) {
+    if (Bouncer.rose()) {
       bounce = false;
       init_ = 0;
 
@@ -370,4 +379,3 @@ void BlinkSaving(void) {
   Blink.setBlink(100, 0, -1, PINLED);
   Blink.setBlink(100, 0, -1, PINLED2);
 }
-

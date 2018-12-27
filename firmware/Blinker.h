@@ -34,15 +34,19 @@ class Blinker
     unsigned long periodon, periodoff;
     int countBlinks = 0;
     byte pinLED = 0;
+    bool inverted = false;
 
   public:
     Blinker(byte port)
     {
       pinLED = port;
+      setInverted();
     }
     Blinker() {}
     void setBlink(unsigned long periodon, unsigned long periodoff, int times, int newpin = -1);
     void playBlink(void);
+
+    void setInverted();
 };
 
 extern Blinker Gates[10]; // Gates triggers
@@ -58,4 +62,3 @@ extern Blinker Gates[10]; // Gates triggers
    void setBlink( unsigned long periodon, unsigned long periodoff, int times, byte color);
    };
 */
-

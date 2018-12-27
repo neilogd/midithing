@@ -20,15 +20,20 @@
 #define MODUL 2
 #define BEND 3
 // In/Out pins
-#define PINGATE 2
-#define PINGATE2 3
-#define PINGATE3 4
-#define PINGATE4 5
-#define PINCLOCK 6
-#define PINLEARN 7
-#define PINLED2 9
-#define PINSTARTSTOP 10
-#define PINLED 13
+#define PINGATE 12
+#define PINGATE2 11
+#define PINGATE3 10
+#define PINGATE4 9
+#define PINCLOCK 3
+#define PINLEARN 15
+#define PINLEARN_HIGH 14
+#define PINLED2 16
+#define PINSTARTSTOP 2
+#define PINLED 17
+
+// Gate output high/low (depends on buffer or inverter output)
+#define GATE_HIGH LOW
+#define GATE_LOW HIGH
 
 // Learn Mode
 #define NORMALMODE 0
@@ -116,4 +121,3 @@ void SetupTimer(unsigned int compTimer1);
 #endif
 
 #endif // __FIRMWARE_H__
-

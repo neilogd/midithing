@@ -172,7 +172,7 @@ void HandleStart(void)
       break;
     case UPDOWN_STSP:
       //Gate Up in start
-      digitalWrite(PINSTARTSTOP, HIGH);
+      digitalWrite(PINSTARTSTOP, GATE_HIGH);
       //Blink.setBlink(100, 0, -1, PINSTARTSTOP);
       break;
   }
@@ -192,7 +192,7 @@ void HandleContinue(void)
       break;
     case UPDOWN_STSP:
       //Gate Up in continue
-      digitalWrite(PINSTARTSTOP, HIGH);
+      digitalWrite(PINSTARTSTOP, GATE_HIGH);
       //Blink.setBlink(100, 0, -1, PINSTARTSTOP);
       break;
   }
@@ -225,4 +225,3 @@ void HandleClock(void)
   }
 }
 #endif  //STARTSTOPCONT
-

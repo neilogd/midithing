@@ -33,12 +33,14 @@ void Blinker::setBlink(unsigned long pon, unsigned long poff, int times, int new
     pinLED = newpin;
   }
 
+  setInverted();
+    
   countBlinks = times;
   // Turn off blinker
   if (times == 0) {
     if (pinLED > 0) {
       if (pinLED < 128) {
-        digitalWrite(pinLED, LOW);
+        digitalWrite(pinLED, inverted);
       } else {
         SendvaltoDAC(pinLED - 128, 0);
       }
@@ -53,7 +55,7 @@ void Blinker::setBlink(unsigned long pon, unsigned long poff, int times, int new
   status = HIGH;
   if (pinLED > 0) {
     if (pinLED < 128) {
-      digitalWrite(pinLED, HIGH);
+      digitalWrite(pinLED, !inverted);
     } else {
       SendvaltoDAC(pinLED - 128, 4095);
     }
@@ -68,6 +70,8 @@ void Blinker::playBlink(void)
     return;
   }
 
+  setInverted();
+
   // Get current time
   unsigned long current = millis();
   // Check end of period on
@@ -78,7 +82,7 @@ void Blinker::playBlink(void)
       status = LOW;
       if (pinLED > 0) {
         if (pinLED < 128) {
-          digitalWrite(pinLED, LOW);
+          digitalWrite(pinLED, inverted);
         } else {
           SendvaltoDAC(pinLED - 128, 0);
         }
@@ -98,11 +102,28 @@ void Blinker::playBlink(void)
       status = HIGH;
       if (pinLED > 0) {
         if (pinLED < 128) {
-          digitalWrite(pinLED, HIGH);
+          digitalWrite(pinLED, !inverted);
         } else {
           SendvaltoDAC(pinLED - 128, 4095);
         }
       }
     }
+  }
+}
+
+void Blinker::setInverted()
+{
+  switch(pinLED)
+  {
+    case PINGATE:
+    case PINGATE2:
+    case PINGATE3:
+    case PINGATE4:
+    case PINSTARTSTOP:
+    case PINCLOCK:
+      inverted = true;
+      break;
+    default:
+      inverted = false;
   }
 }

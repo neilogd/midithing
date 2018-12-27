@@ -33,6 +33,7 @@ GENERALSETTINGS GS;
 byte LastVel = 0;
 byte LastNote = 0;
 
+
 // Actions to perform for Note On
 void MIDICV::processNoteOn(byte pitch, byte velocity)
 {
@@ -214,14 +215,14 @@ void MIDICV::playNote(byte note, byte plvelocity)
       if ( !GS.VoiceOverlap && !IsPolyMode(GS.VoiceMode) && plvelocity > 0 && LastVel > 0 && note != LastNote && !Retrig[gatePin].DoRetrig) {
         Retrig[gatePin].DoRetrig = true;
       } else {
-        digitalWrite(gatePin, HIGH);
+        digitalWrite(gatePin, GATE_HIGH);
       }
     }
   } else {
     if (plvelocity == 0) { //NOTE OFF
       playNoteOff();
     } else if (gatePin != -1) {
-      digitalWrite(gatePin, HIGH);
+      digitalWrite(gatePin, GATE_HIGH);
     }
   }
 
@@ -238,7 +239,8 @@ void MIDICV::playNoteOff(void)
       Retrig[gatePin].NoteOffTrig = true;
       //RetrigProcess();
     }
-    digitalWrite(gatePin, LOW);
+    
+    digitalWrite(gatePin, GATE_LOW);
   }
 }
 
